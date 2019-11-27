@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Traits\ActiveUserHelper;
+use App\Models\Traits\LastActivedAtHelper;
 use Auth;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,6 +50,9 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use \Illuminate\Auth\MustVerifyEmail;
+
+    use ActiveUserHelper;
+    use LastActivedAtHelper;
 
     use HasRoles;
 

@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'PagesController@root')->name('root');
+Route::get('/', 'TopicsController@index')->name('root');
 
 //Auth::routes();
 // 用户身份验证相关的路由
@@ -49,4 +49,6 @@ Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload
 
 Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
 Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
+
+Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
 
