@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * App\Models\User
@@ -47,7 +48,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $replies_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereNotificationCount($value)
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail,JWTSubject
 {
     use \Illuminate\Auth\MustVerifyEmail;
 
@@ -92,7 +93,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'weixin_openid', 'weixin_unionid'
     ];
 
     /**
@@ -147,5 +148,27 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         $this->attributes['avatar'] = $path;
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        // TODO: Implement getJWTIdentifier() method.
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        // TODO: Implement getJWTCustomClaims() method.
+        return [];
     }
 }
